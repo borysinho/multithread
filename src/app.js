@@ -1,10 +1,15 @@
-const express = require("express");
+import express from "express";
+import pagos from "./routes/pagos.routes.js";
+import deudas from "./routes/deudas.routes.js";
+
 const app = express();
 
-//RUTAS
-const routes = require("./routes/index.routes");
+app.use(express.json());
 
-app.use(routes);
+//RUTAS
+
+app.use("/api", pagos);
+app.use("/api", deudas);
 
 app.listen(3000, () => {
   console.log("Servidor funcionando en puerto 3000");

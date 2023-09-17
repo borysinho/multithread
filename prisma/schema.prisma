@@ -10,4 +10,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model  
+model Persona {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  createdAt DateTime @default(now())
+  deuda     Deuda    @relation(fields: [deudaId], references: [id])
+  deudaId   Int
+}
+
+model Deuda {
+  id       Int       @id @default(autoincrement())
+  monto    Int
+  personas Persona[]
+  pago     Pago      @relation(fields: [pagoId], references: [id])
+  pagoId   Int
+}
+
+model Pago {
+  id     Int      @id @default(autoincrement())
+  fecha  DateTime @default(now())
+  deudas Deuda[]
+}
